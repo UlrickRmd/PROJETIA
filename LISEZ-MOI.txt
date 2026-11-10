@@ -1,0 +1,19 @@
+PAKISANIA — Prototype HTML/CSS/JavaScript
+
+LANCEMENT
+1. Décompressez le dossier PakiSanIA.
+2. Ouvrez index.html dans votre navigateur (double-clic).
+3. Aucune installation ni serveur n'est nécessaire.
+
+FONCTIONNALITÉS DE DÉMONSTRATION
+- Interface de chat et sélection de modèle
+- Historique local des conversations
+- Page de connexion de démonstration
+- Administration : ajout, modification et suppression de modèles
+- Sauvegarde des données dans le stockage local du navigateur
+
+IMPORTANT
+Ce prototype est une interface front-end. Les réponses du chatbot sont simulées.
+Pour utiliser de vrais modèles, il faudra créer un backend (par exemple Spring Boot),
+configurer les fournisseurs via LiteLLM et appeler les API depuis le serveur.
+Ne placez jamais de clé API dans les fichiers JavaScript du navigateur.

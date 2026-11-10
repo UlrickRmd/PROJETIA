@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PakiSanIA — Votre assistant IA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#" data-page="chat">
+      <img src="assets/logo.png" alt="Logo PakiSanIA" onerror="this.style.display='none'">
+      <span>PakiSan<span class="gold">IA</span></span>
+    </a>
+    <div class="side-label">ESPACE PERSONNEL</div>
+    <button class="nav-link active" data-page="chat"><span>▣</span> Chat</button>
+    <button class="nav-link" data-page="history"><span>◷</span> Historique</button>
+    <button class="new-chat" id="newChat">＋ Nouvelle conversation</button>
+    <div class="side-label recent-label">RÉCENT</div>
+    <div id="conversationList" class="conversation-list"></div>
+    <div class="sidebar-bottom">
+      <button class="nav-link" data-page="admin"><span>⚙</span> Administration</button>
+      <button class="nav-link" data-page="login"><span>⇥</span> Connexion</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" id="menuBtn" aria-label="Ouvrir le menu">☰</button>
+      <div class="breadcrumb"><span class="dot"></span> <span id="pageName">Assistant IA</span></div>
+      <div class="top-actions">
+        <span class="secure">▣ <span>Assistant intelligent</span></span>
+        <button class="avatar" id="profileBtn" title="Compte">PS</button>
+      </div>
+    </header>
+
+    <section class="page active" id="page-chat">
+      <div class="chat-layout">
+        <div class="chat-heading">
+          <div class="eyebrow">VOTRE ESPACE DE CONVERSATION</div>
+          <h1>Bonjour, que puis-je faire <span class="green-text">pour vous ?</span></h1>
+          <p>Posez vos questions et échangez avec vos modèles d’intelligence artificielle préférés.</p>
+          <div class="model-picker">
+            <label for="modelSelect">Modèle d’IA</label>
+            <select id="modelSelect"></select>
+            <span class="picker-icon">✦</span>
+          </div>
+        </div>
+        <div class="chat-card">
+          <div class="messages" id="messages">
+            <div class="welcome">
+              <div class="welcome-mark">✦</div>
+              <h2>Bienvenue sur PakiSan<span class="gold">IA</span></h2>
+              <p>Commencez une conversation en écrivant votre premier message.</p>
+              <div class="suggestions">
+                <button class="suggestion">Explique-moi un concept simplement</button>
+                <button class="suggestion">Aide-moi à structurer un projet</button>
+                <button class="suggestion">Résume un texte</button>
+              </div>
+            </div>
+          </div>
+          <form class="composer" id="chatForm">
+            <textarea id="messageInput" rows="1" placeholder="Écrivez votre message ici…" aria-label="Votre message"></textarea>
+            <button class="send-btn" type="submit" aria-label="Envoyer">➤</button>
+            <div class="composer-note">Entrée pour envoyer · Maj + Entrée pour aller à la ligne</div>
+          </form>
+        </div>
+        <p class="disclaimer">Les réponses générées par l’IA peuvent contenir des erreurs. Pensez à vérifier les informations importantes.</p>
+      </div>
+    </section>
+
+    <section class="page" id="page-history">
+      <div class="page-header"><div><div class="eyebrow">VOTRE ESPACE</div><h1>Historique des conversations</h1><p>Retrouvez et reprenez vos échanges précédents.</p></div><button class="primary-btn" id="historyNew">＋ Nouvelle conversation</button></div>
+      <div class="panel"><div class="panel-title">Toutes les conversations</div><div id="historyList" class="history-list"></div></div>
+    </section>
+
+    <section class="page" id="page-admin">
+      <div class="page-header"><div><div class="eyebrow">ESPACE ADMINISTRATEUR</div><h1>Gestion des modèles d’IA</h1><p>Consultez et gérez les modèles disponibles sur la plateforme.</p></div><button class="primary-btn" id="addModel">＋ Ajouter un modèle</button></div>
+      <div class="stats"><div class="stat"><span>MODÈLES DISPONIBLES</span><strong id="modelCount">3</strong><small>Dans votre catalogue</small></div><div class="stat"><span>FOURNISSEURS</span><strong>3</strong><small>Connecteurs configurés</small></div><div class="stat"><span>STATUT</span><strong class="status-live">● Opérationnel</strong><small>Interface de démonstration</small></div></div>
+      <div class="panel"><div class="panel-title">Catalogue des modèles</div><div class="table-wrap"><table><thead><tr><th>Modèle</th><th>Fournisseur</th><th>Identifiant technique</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="modelTable"></tbody></table></div></div>
+      <div class="admin-note">Mode prototype : les modifications sont enregistrées localement dans votre navigateur. Les appels aux API IA nécessitent un serveur et des clés API.</div>
+    </section>
+
+    <section class="page" id="page-login">
+      <div class="login-wrap"><div class="login-card"><div class="login-logo">P<span>IA</span></div><div class="eyebrow">HEUREUX DE VOUS REVOIR</div><h1>Connexion</h1><p>Accédez à votre espace PakiSanIA.</p><form id="loginForm"><label>Adresse e-mail</label><input type="email" placeholder="nom@exemple.fr" required><label>Mot de passe</label><input type="password" placeholder="Votre mot de passe" required><button class="primary-btn full" type="submit">Se connecter <span>→</span></button></form><div class="login-hint">Prototype visuel — aucune authentification réelle n’est activée.</div></div></div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modelModal">
+  <div class="modal">
+    <div class="modal-head"><div><div class="eyebrow">CATALOGUE IA</div><h2 id="modalTitle">Ajouter un modèle</h2></div><button class="close-btn" id="closeModal">×</button></div>
+    <form id="modelForm">
+      <input type="hidden" id="editId">
+      <label for="modelName">Nom du modèle *</label><input id="modelName" required placeholder="Ex. GPT-4o">
+      <label for="provider">Fournisseur *</label><select id="provider"><option>OpenAI</option><option>Anthropic</option><option>Google</option><option>Autre</option></select>
+      <label for="modelTechnical">Identifiant technique *</label><input id="modelTechnical" required placeholder="Ex. gpt-4o">
+      <label for="modelDescription">Description</label><textarea id="modelDescription" rows="3" placeholder="Décrivez brièvement le modèle…"></textarea>
+      <label class="check-row"><input type="checkbox" id="modelActive" checked> Modèle actif</label>
+      <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelModal">Annuler</button><button type="submit" class="primary-btn">Enregistrer</button></div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
